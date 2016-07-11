@@ -16,6 +16,8 @@ import groovy.json.JsonSlurper
 @Log4j
 class Runner {
 
+    private Boolean cache = false
+    private String tmpdir = "./tmp"
     private String filename
     private String code
 
@@ -26,8 +28,6 @@ class Runner {
     SolverType solver
     String solverOutput
     String solverError
-
-    Boolean cache = false;
 
     List<Rule> ruleList = []
     List<AnswerSet> answerSetList = []
@@ -43,10 +43,9 @@ class Runner {
         cleanCode()
 
         // generate temporary directory for files
-        String foldername = 'tmp'
-        def folder = new File(foldername + '/')
+        def folder = new File(tmpdir + '/')
         if (!folder.exists()) folder.mkdirs()
-        filename = foldername + "/" + generateMD5(code)
+        filename = tmpdir + "/" + generateMD5(code)
     }
 
     void loadCodeFromFile(String filename) {
@@ -199,7 +198,7 @@ class Runner {
             }
 
             StringBuffer parserOutBuffer = new StringBuffer(), parserErrBuffer = new StringBuffer()
-            def parserProcess = "./bin/lparse -W all --true-negation $filename".execute()
+            def parserProcess = "lparse -W all --true-negation $filename".execute()
             parserProcess.consumeProcessOutput(parserOutBuffer, parserErrBuffer)
             parserProcess.waitFor()
 

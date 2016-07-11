@@ -10,7 +10,7 @@ grasp is good for you if you want to integrate within your own groovy/java appli
 ## Dependencies
 
 Download the binaries of +lparse+ and +smodels+ from http://www.tcs.hut.fi/Software/smodels/
-and put them in the bin directory.
+and set them up to run from the command line.
 
 Add the following jars at compile time:
 * groovy (tested with *groovy-2.4.7*)

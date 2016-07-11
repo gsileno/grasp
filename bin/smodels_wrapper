@@ -1,2 +1,2 @@
 # simple wrapper because of problems in executing the pipeline in groovy
-cat $1 | ./bin/smodels 0
+cat $1 | smodels 0
