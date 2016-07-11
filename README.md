@@ -1,15 +1,16 @@
 # grasp
-*a GRoovy wrapper for Answer Set Programming (ASP)*
+*a Groovy parser and wrapper for Answer Set Programming (ASP)*
 
-At the moment grasp is just a wrapper to lparse+smodels. 
-In the future, it should include other ASP grounders/solvers, and in an utopistic future, it will host a full ASP suite implemented in Groovy. 
+At the moment grasp is just a wrapper to `lparse+smodels`. 
+In the future, it should include other ASP grounders/solvers.. 
+and in an utopistic future, it will host a full ASP suite implemented in Groovy. 
 
 grasp is NOT good for you if you are concerned about efficiency.
 grasp is good for you if you want to integrate within your own groovy/java application the capabilities of ASP. 
 
 ## Dependencies
 
-Download the binaries of +lparse+ and +smodels+ from http://www.tcs.hut.fi/Software/smodels/
+Download the binaries of `lparse` and `smodels` from http://www.tcs.hut.fi/Software/smodels/
 and set them up to run from the command line.
 
 Add the following jars at compile time:
@@ -21,8 +22,5 @@ Add the following jars at compile time:
 * parser of ASP programs
 * wrapper to ASP solver
 * parser ASP solver output
-So far, grasp integrate only lparse and smodels.
 
 ## Usage
-
-
