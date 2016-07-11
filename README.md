@@ -1,10 +1,14 @@
 # grasp
-*a GRoovy wrapper for Answer Set Programming (ASP)*
+*a Groovy parser and wrapper for Answer Set Programming (ASP)*
 
 At the moment grasp is just a wrapper to lparse+smodels. 
-In the future, it should include other ASP grounders/solvers, and in an utopistic future, it will host a full ASP suite implemented in Groovy. 
+
+In the future, it should include other ASP grounders/solvers.. 
+
+and in an utopistic future, it will host a full ASP suite implemented in Groovy. 
 
 grasp is NOT good for you if you are concerned about efficiency.
+
 grasp is good for you if you want to integrate within your own groovy/java application the capabilities of ASP. 
 
 ## Dependencies
