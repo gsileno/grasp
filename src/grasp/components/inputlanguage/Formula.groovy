@@ -76,6 +76,30 @@ class Formula {
         formula
     }
 
+    // build a formula from string versions of the terms (eg 010, 1X0), given a dictionary of atoms (eg. [a, b, c]
+    // the result is e.g. (-a and b and -c)
+    static Formula buildFromStringGroundLiterals(String stringValue, List<Literal> groundLiterals) {
+
+        if (stringValue.length() != groundLiterals.size()) {
+            throw new RuntimeException()
+        }
+
+        List<Literal> conditions = []
+        for (Integer i = 0; i < stringValue.length(); i++) {
+            if (stringValue[i] == '0') {
+                conditions << groundLiterals[i].negate()
+            } else if (stringValue[i] == '1') {
+                conditions << groundLiterals[i]
+            } else if (stringValue[i] == 'X') {
+                // else "X" don't do anything
+            } else {
+                throw new RuntimeException()
+            }
+        }
+
+        buildFromLiterals(conditions, Operator.AND)
+    }
+
     // unary formula
     static Formula build(Formula input, Operator op) {
 
@@ -119,7 +143,6 @@ class Formula {
         formula
     }
 
-
     //////////////////
     // Views
     //////////////////
@@ -129,7 +152,7 @@ class Formula {
 
         Boolean printOp = (operator != Operator.POS)
 
-        if (printOp) output += operator.toString()+"("
+        if (printOp) output += operator.toString() + "("
 
         if (inputFormulas.size() > 0) {
             for (formula in inputFormulas)
@@ -145,6 +168,25 @@ class Formula {
         if (printOp) output += ")"
 
         output
+    }
+
+    List<Literal> getGroundLiterals(List<Literal> groundLiterals = []) {
+
+        for (term in inputTerms) {
+            if (term.number != null)
+                throw new RuntimeException();
+            else if (term.variable != null)
+                throw new RuntimeException();
+            else if (term.extLiteral.not)
+                throw new RuntimeException();
+            else if (!term.extLiteral.literal.isGrounded())
+                throw new RuntimeException();
+            else {
+                groundLiterals << term.extLiteral.literal
+            }
+        }
+
+        groundLiterals
     }
 
 }

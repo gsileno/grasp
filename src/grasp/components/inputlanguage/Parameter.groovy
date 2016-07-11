@@ -35,4 +35,16 @@ class Parameter {
         output
     }
 
+    Boolean isLiteral() {
+        (literal != null)
+    }
+
+    Boolean isVariable() {
+        (variable != null)
+    }
+
+    Boolean isConstant() {
+        (constant != null)
+    }
+
 }

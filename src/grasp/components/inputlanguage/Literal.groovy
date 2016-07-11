@@ -4,7 +4,7 @@ import groovy.transform.AutoClone
 import groovy.transform.EqualsAndHashCode
 import groovy.util.logging.Log4j
 
-@Log4j @EqualsAndHashCode @AutoClone
+@Log4j @EqualsAndHashCode
 class Literal {
 
     // classic negation
@@ -19,6 +19,18 @@ class Literal {
 
     Literal negate() {
         new Literal(predicate: predicate, parameters: parameters, neg: !neg)
+    }
+
+    Literal absolute() {
+        new Literal(predicate: predicate, parameters: parameters, neg: false)
+    }
+
+    Boolean isGrounded() {
+        for (parameter in parameters) {
+            if (parameter.isVariable())
+                return false
+        }
+        return true
     }
 
     String toString() {

@@ -229,7 +229,7 @@ class Runner {
             StringBuffer solverOutBuffer = new StringBuffer(), solverErrBuffer = new StringBuffer()
 
             // for problems with the command line and groovy I use a wrapper script around smodels
-            def solverProcess = "./bin/smodels_wrapper ${filename}.grounder.out".execute()
+            def solverProcess = "smodels_wrapper ${filename}.grounder.out".execute()
             solverProcess.consumeProcessOutput(solverOutBuffer, solverErrBuffer)
             solverProcess.waitFor()
 
