@@ -1,0 +1,12 @@
+### IntelliJ stuff
+*.iml
+*.ipr
+*.iws
+.idea/
+.idea_modules/
+out/
+tmp/
+
+### the binaries of ASP grounder and solver
+bin/lparse
+bin/smodels
