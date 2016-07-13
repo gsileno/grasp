@@ -1,10 +1,10 @@
 package grasp.runners
 
 import grasp.components.inputlanguage.Rule
-import grasp.parser.LparseASPLoader
+import grasp.parsers.LparseASPLoader
 import groovy.util.logging.Log4j
 import grasp.components.outputlanguage.AnswerSet
-import grasp.parser.SmodelsOutputLoader
+import grasp.parsers.SmodelsOutputLoader
 
 import java.security.MessageDigest
 
@@ -19,7 +19,8 @@ class Runner {
     private Boolean cache = false
     private String tmpdir = "./tmp"
     private String filename
-    private String code
+
+    String code
 
     GrounderType grounder
     String grounderOutput

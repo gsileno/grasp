@@ -9,6 +9,26 @@ class Parameter {
     Variable variable
     Integer constant
 
+    ///////////////////////////////////////
+    // qualifiers
+    ///////////////////////////////////////
+
+    Boolean isLiteral() {
+        (literal != null)
+    }
+
+    Boolean isVariable() {
+        (variable != null)
+    }
+
+    Boolean isConstant() {
+        (constant != null)
+    }
+
+    ///////////////////////////////////////
+    // builders
+    ///////////////////////////////////////
+
     static Parameter build(Literal literal) {
         new Parameter(literal: literal)
     }
@@ -21,9 +41,9 @@ class Parameter {
         new Parameter(variable: variable)
     }
 
-    //////////////////
-    // Views
-    //////////////////
+    ///////////////////////////////////////
+    // views
+    ///////////////////////////////////////
 
     String toString() {
         String output = ""
@@ -33,18 +53,6 @@ class Parameter {
         else if (constant != null) output += constant.toString()
 
         output
-    }
-
-    Boolean isLiteral() {
-        (literal != null)
-    }
-
-    Boolean isVariable() {
-        (variable != null)
-    }
-
-    Boolean isConstant() {
-        (constant != null)
     }
 
 }

@@ -1,18 +1,13 @@
-package grasp.parser;
+package grasp.parsers;
 
-import grasp.components.base.Base;
-import grasp.components.inputlanguage.Formula;
 import grasp.components.inputlanguage.Rule;
 import org.antlr.v4.runtime.ANTLRInputStream;
 import org.antlr.v4.runtime.CommonTokenStream;
 import org.antlr.v4.runtime.DiagnosticErrorListener;
 import org.antlr.v4.runtime.tree.ParseTree;
 import org.antlr.v4.runtime.tree.ParseTreeWalker;
-import grasp.components.inputlanguage.Atom;
-import grasp.components.outputlanguage.Execution;
 
 import java.io.*;
-import java.util.ArrayList;
 import java.util.List;
 
 public class LparseASPLoader {

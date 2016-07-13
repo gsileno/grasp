@@ -56,7 +56,7 @@ ext_literal : ( NOT )? literal ;
 /** A literal can be positive or negative. */
 literal : ( MINUS )? pos_literal ;
 
-/** A positive literal consists of symbols (no predicates) or symbols and terms (predicate literal). */
+/** A positive literal consists of symbols (no predicates) or symbols and terms (atom literal). */
 pos_literal : predicate ( LPAR list_parameters RPAR )? ;
 
 /** Parameters are identifiers or variables, separated by comma. */

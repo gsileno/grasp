@@ -6,6 +6,10 @@ class Term {
     Variable variable
     Integer number
 
+    ///////////////////////////////////////
+    // builders
+    ///////////////////////////////////////
+
     static build(Atom atom) {
         new Term(
                 extLiteral: ExtLiteral.build(atom)
@@ -24,9 +28,9 @@ class Term {
         )
     }
 
-    //////////////////
-    // Views
-    //////////////////
+    ///////////////////////////////////////
+    // views
+    ///////////////////////////////////////
 
     String toString() {
         String output = ""

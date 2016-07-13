@@ -1,4 +1,4 @@
-package grasp.parser;
+package grasp.parsers;
 
 import grasp.components.inputlanguage.Atom;
 import grasp.components.inputlanguage.Literal;
@@ -30,13 +30,11 @@ public class SmodelsOutputLoaderListener extends SmodelsOutputBaseListener {
     ///////////////// LISTENERS
 
     public void exitPos_literal(SmodelsOutputParser.Pos_literalContext ctx) {
-        Literal literal = Literal.build(Atom.build(ctx.predicate().IDENTIFIER().getText()));
-
+        Atom atom = Atom.build(ctx.predicate().IDENTIFIER().getText());
         if (ctx.list_parameters() != null) {
-            literal.setParameters(parameterListNodes.get(ctx.list_parameters()));
+            atom.setParameters(parameterListNodes.get(ctx.list_parameters()));
         }
-
-        literalNodes.put(ctx, literal);
+        atomNodes.put(ctx, atom);
     }
 
     public void exitList_parameters(SmodelsOutputParser.List_parametersContext ctx) {
@@ -67,12 +65,8 @@ public class SmodelsOutputLoaderListener extends SmodelsOutputBaseListener {
 
     public void exitLiteral(SmodelsOutputParser.LiteralContext ctx) {
 
-        Literal pos_literal = literalNodes.get(ctx.pos_literal());
-
-        Literal literal = new Literal();
-
-        literal.setParameters(pos_literal.getParameters());
-        literal.setPredicate(pos_literal.getPredicate());
+        Atom pos_literal = atomNodes.get(ctx.pos_literal());
+        Literal literal = Literal.build(pos_literal);
 
         if (ctx.MINUS() != null) {
             literal.setNeg(true);

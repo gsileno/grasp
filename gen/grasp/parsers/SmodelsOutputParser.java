@@ -1,13 +1,10 @@
 // Generated from /home/giovanni/dev/grasp/antlr4/SmodelsOutput.g4 by ANTLR 4.5.3
-package grasp.parser;
+package grasp.parsers;
 import org.antlr.v4.runtime.atn.*;
 import org.antlr.v4.runtime.dfa.DFA;
 import org.antlr.v4.runtime.*;
-import org.antlr.v4.runtime.misc.*;
 import org.antlr.v4.runtime.tree.*;
 import java.util.List;
-import java.util.Iterator;
-import java.util.ArrayList;
 
 @SuppressWarnings({"all", "warnings", "unchecked", "unused", "cast"})
 public class SmodelsOutputParser extends Parser {
@@ -28,7 +25,7 @@ public class SmodelsOutputParser extends Parser {
 		RULE_list_parameters = 8, RULE_predicate = 9, RULE_identifier = 10, RULE_constant = 11;
 	public static final String[] ruleNames = {
 		"program", "statement_list", "statement", "answerset_list", "answerset", 
-		"fact_list", "literal", "pos_literal", "list_parameters", "predicate", 
+		"fact_list", "literal", "pos_literal", "list_parameters", "atom",
 		"identifier", "constant"
 	};
 

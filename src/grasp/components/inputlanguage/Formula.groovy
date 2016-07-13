@@ -2,14 +2,37 @@ package grasp.components.inputlanguage
 
 class Formula {
 
-    // highest abstraction level
     List<Formula> inputFormulas = [] // sub-formulas in input
     Operator operator                // last operator
     List<Term> inputTerms = []       // relevant, dependent factors
 
-    //////////////////
-    // Builders
-    //////////////////
+    ///////////////////////////////////////
+    // operations
+    ///////////////////////////////////////
+
+    List<Literal> getGroundLiterals(List<Literal> groundLiterals = []) {
+
+        for (term in inputTerms) {
+            if (term.number != null)
+                throw new RuntimeException();
+            else if (term.variable != null)
+                throw new RuntimeException();
+            else if (term.extLiteral.not)
+                throw new RuntimeException();
+            else if (!term.extLiteral.literal.isGrounded())
+                throw new RuntimeException();
+            else {
+                groundLiterals << term.extLiteral.literal
+            }
+        }
+
+        groundLiterals
+    }
+
+    ///////////////////////////////////////
+    // builders
+    ///////////////////////////////////////
+
     static Formula build(Literal literal) {
         new Formula(
                 operator: Operator.POS,
@@ -143,9 +166,9 @@ class Formula {
         formula
     }
 
-    //////////////////
-    // Views
-    //////////////////
+    ///////////////////////////////////////
+    // views
+    ///////////////////////////////////////
 
     String toString() {
         String output = ""
@@ -168,25 +191,6 @@ class Formula {
         if (printOp) output += ")"
 
         output
-    }
-
-    List<Literal> getGroundLiterals(List<Literal> groundLiterals = []) {
-
-        for (term in inputTerms) {
-            if (term.number != null)
-                throw new RuntimeException();
-            else if (term.variable != null)
-                throw new RuntimeException();
-            else if (term.extLiteral.not)
-                throw new RuntimeException();
-            else if (!term.extLiteral.literal.isGrounded())
-                throw new RuntimeException();
-            else {
-                groundLiterals << term.extLiteral.literal
-            }
-        }
-
-        groundLiterals
     }
 
 }

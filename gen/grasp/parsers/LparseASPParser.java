@@ -1,13 +1,10 @@
 // Generated from /home/giovanni/dev/grasp/antlr4/LparseASP.g4 by ANTLR 4.5.3
-package grasp.parser;
+package grasp.parsers;
 import org.antlr.v4.runtime.atn.*;
 import org.antlr.v4.runtime.dfa.DFA;
 import org.antlr.v4.runtime.*;
-import org.antlr.v4.runtime.misc.*;
 import org.antlr.v4.runtime.tree.*;
 import java.util.List;
-import java.util.Iterator;
-import java.util.ArrayList;
 
 @SuppressWarnings({"all", "warnings", "unchecked", "unused", "cast"})
 public class LparseASPParser extends Parser {
@@ -32,7 +29,7 @@ public class LparseASPParser extends Parser {
 		"program", "directive", "asprule", "aspfact", "range", "normrule", "constraint", 
 		"choice", "head", "body", "list_literals", "list_ext_literals_expressions", 
 		"expression", "num_expression", "ext_literal", "literal", "pos_literal", 
-		"list_parameters", "predicate", "identifier", "constant", "variable"
+		"list_parameters", "atom", "identifier", "constant", "variable"
 	};
 
 	private static final String[] _LITERAL_NAMES = {

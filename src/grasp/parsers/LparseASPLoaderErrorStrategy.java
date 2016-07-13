@@ -1,8 +1,8 @@
-package grasp.parser;
+package grasp.parsers;
 
 import org.antlr.v4.runtime.*;
 
-public class SmodelsOutputLoaderErrorStrategy extends DefaultErrorStrategy {
+public class LparseASPLoaderErrorStrategy extends DefaultErrorStrategy {
 
     /**
      * Instead of recovering from exception e, rethrow it wrapped

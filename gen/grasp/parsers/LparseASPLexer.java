@@ -1,5 +1,5 @@
 // Generated from /home/giovanni/dev/grasp/antlr4/LparseASP.g4 by ANTLR 4.5.3
-package grasp.parser;
+package grasp.parsers;
 import org.antlr.v4.runtime.Lexer;
 import org.antlr.v4.runtime.CharStream;
 import org.antlr.v4.runtime.Token;

@@ -1,11 +1,9 @@
-package grasp.parser;
+package grasp.parsers;
 
 import grasp.components.inputlanguage.*;
-import org.antlr.v4.runtime.atn.SemanticContext;
 import org.antlr.v4.runtime.tree.ParseTreeProperty;
 import org.apache.log4j.Logger;
 
-import java.text.Normalizer;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -15,6 +13,7 @@ public class LparseASPLoaderListener extends LparseASPBaseListener {
 
     // Mapping of nodes
     private ParseTreeProperty<List<Parameter>> parameterListNodes = new ParseTreeProperty<List<Parameter>>();
+    private ParseTreeProperty<Atom> atomNodes = new ParseTreeProperty<Atom>();
     private ParseTreeProperty<Literal> literalNodes = new ParseTreeProperty<Literal>();
     private ParseTreeProperty<List<Literal>> literalListNodes = new ParseTreeProperty<List<Literal>>();
     private ParseTreeProperty<ExtLiteral> extLiteralNodes = new ParseTreeProperty<ExtLiteral>();
@@ -30,11 +29,11 @@ public class LparseASPLoaderListener extends LparseASPBaseListener {
     public void exitPos_literal(LparseASPParser.Pos_literalContext ctx) {
 
         if (ctx.predicate().IDENTIFIER() != null) {
-            Literal literal = Literal.build(Atom.build(ctx.predicate().IDENTIFIER().getText()));
+            Atom atom = Atom.build(ctx.predicate().IDENTIFIER().getText());
             if (ctx.list_parameters() != null) {
-                literal.setParameters(parameterListNodes.get(ctx.list_parameters()));
+                atom.setParameters(parameterListNodes.get(ctx.list_parameters()));
             }
-            literalNodes.put(ctx, literal);
+            atomNodes.put(ctx, atom);
         } else {
             throw new RuntimeException();
         }
@@ -42,13 +41,9 @@ public class LparseASPLoaderListener extends LparseASPBaseListener {
 
     public void exitLiteral(LparseASPParser.LiteralContext ctx) {
 
-        Literal pos_literal = literalNodes.get(ctx.pos_literal());
+        Atom pos_literal = atomNodes.get(ctx.pos_literal());
 
-        // TODO: refactoring
-        Literal literal = new Literal();
-        literal.setParameters(pos_literal.getParameters());
-        literal.setPredicate(pos_literal.getPredicate());
-
+        Literal literal = Literal.build(pos_literal);
         if (ctx.MINUS() != null) {
             literal.setNeg(true);
         } else {

@@ -1,20 +1,21 @@
 package grasp.components.inputlanguage
 
-import groovy.transform.AutoClone
 import groovy.transform.EqualsAndHashCode
 import groovy.util.logging.Log4j
 
 @Log4j @EqualsAndHashCode
 class ExtLiteral {
 
-    // default negation
-    Boolean not
-
+    Boolean not // default negation
     Literal literal
 
-    static ExtLiteral build(Atom atom) {
+    ///////////////////////////////////////
+    // builders
+    ///////////////////////////////////////
+
+    static ExtLiteral build(String functor) {
         ExtLiteral extLiteral = new ExtLiteral()
-        extLiteral.literal = Literal.build(atom)
+        extLiteral.literal = Literal.build(functor)
         extLiteral.not = false
         extLiteral
     }
@@ -26,6 +27,10 @@ class ExtLiteral {
         extLiteral
     }
 
+    ///////////////////////////////////////
+    // operations
+    ///////////////////////////////////////
+
     ExtLiteral nullify() {
         build(literal, true)
     }
@@ -33,6 +38,10 @@ class ExtLiteral {
     ExtLiteral negate() {
         build(literal.negate(), true)
     }
+
+    ///////////////////////////////////////
+    // views
+    ///////////////////////////////////////
 
     String toString() {
         String output = literal.toString()
