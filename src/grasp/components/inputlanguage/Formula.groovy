@@ -1,5 +1,8 @@
 package grasp.components.inputlanguage
 
+import groovy.transform.AutoClone
+
+@AutoClone
 class Formula {
 
     List<Formula> inputFormulas = [] // sub-formulas in input
@@ -27,6 +30,16 @@ class Formula {
         }
 
         groundLiterals
+    }
+
+    Formula negate() {
+        if (inputFormulas.size() == 0) { // negation of a literal
+            return build(inputTerms.get(0).negate())
+        } else if (operator == Operator.NEG) { // negation of a formula // double negation
+            if (inputFormulas.size() > 1) throw new RuntimeException("Expected a unary operation here")
+            return inputFormulas.get(0).clone()
+        } else
+            return build(this, Operator.NEG)
     }
 
     ///////////////////////////////////////

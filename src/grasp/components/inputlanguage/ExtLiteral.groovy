@@ -10,6 +10,22 @@ class ExtLiteral {
     Literal literal
 
     ///////////////////////////////////////
+    // qualifiers
+    ///////////////////////////////////////
+
+    Boolean isLiteral() {
+        return (!not)
+    }
+
+    Boolean isAtom() {
+        return (literal.isAtom())
+    }
+
+    Boolean isIdentifier() {
+        return (literal.isIdentifier())
+    }
+
+    ///////////////////////////////////////
     // builders
     ///////////////////////////////////////
 

@@ -17,6 +17,14 @@ class Literal {
         atom.isGrounded()
     }
 
+    Boolean isAtom() {
+        return (!neg)
+    }
+
+    Boolean isIdentifier() {
+        return (atom.isIdentifier())
+    }
+
     ///////////////////////////////////////
     // operations
     ///////////////////////////////////////

@@ -7,12 +7,51 @@ class Term {
     Integer number
 
     ///////////////////////////////////////
+    // qualifier
+    ///////////////////////////////////////
+
+    Boolean isVariable() {
+        return (variable != null)
+    }
+
+    Boolean isNumber() {
+        return (number != null)
+    }
+
+    Boolean isExtLiteral() {
+        return (extLiteral != null)
+    }
+
+    Boolean isLiteral() {
+        return (extLiteral != null && extLiteral.isLiteral())
+    }
+
+    Boolean isAtom() {
+        return (extLiteral != null && extLiteral.isAtom())
+    }
+
+    Boolean isIdentifier() {
+        return (extLiteral != null && extLiteral.isIdentifier())
+    }
+
+    ///////////////////////////////////////
+    // operations
+    ///////////////////////////////////////
+
+    Term negate() {
+        if (extLiteral != null)
+            build(extLiteral.negate())
+        else
+            throw new RuntimeException("Negation on a not literal term.")
+    }
+
+    ///////////////////////////////////////
     // builders
     ///////////////////////////////////////
 
-    static build(Atom atom) {
+    static build(String functor) {
         new Term(
-                extLiteral: ExtLiteral.build(atom)
+                extLiteral: ExtLiteral.build(functor)
         )
     }
 
