@@ -1,9 +1,10 @@
 package grasp.components.inputlanguage
 
+import groovy.transform.AutoClone
 import groovy.transform.EqualsAndHashCode
 import groovy.util.logging.Log4j
 
-@Log4j @EqualsAndHashCode
+@Log4j @EqualsAndHashCode @AutoClone
 class Literal {
 
     Boolean neg // classic negation
@@ -47,6 +48,14 @@ class Literal {
 
     static Literal build(String functor, List<Parameter> parameters = [], neg = false) {
         new Literal(atom: Atom.build(functor, parameters), neg: neg)
+    }
+
+    ///////////////////////////////////////
+    // converters
+    ///////////////////////////////////////
+
+    Formula toFormula() {
+        Formula.build(this)
     }
 
     ///////////////////////////////////////

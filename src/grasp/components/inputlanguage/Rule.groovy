@@ -50,7 +50,7 @@ public class Rule {
     ///////////////////////////////////////
 
     Formula toFormula() {
-        Formula.build(body, head, Operator.IMPLIES)
+        Formula.build(body, head, Operator.IF)
     }
 
     ///////////////////////////////////////

@@ -13,6 +13,30 @@ class Formula {
     // operations
     ///////////////////////////////////////
 
+    List<ExtLiteral> getInputExtLiterals() {
+        List<ExtLiteral> inputExtLiterals = []
+        for (term in inputTerms) {
+            if (!term.isExtLiteral())
+                throw new RuntimeException("I was expecting only extended literal terms here: "+ this);
+            else {
+                inputExtLiterals << term.getExtLiteral()
+            }
+        }
+        inputExtLiterals
+    }
+
+    List<Literal> getInputLiterals() {
+        List<Literal> inputLiterals = []
+        for (term in inputTerms) {
+            if (!term.isLiteral())
+                throw new RuntimeException("I was expecting only literal terms here: "+ this);
+            else {
+                inputLiterals << term.getLiteral()
+            }
+        }
+        inputLiterals
+    }
+
     List<Literal> getGroundLiterals(List<Literal> groundLiterals = []) {
 
         for (term in inputTerms) {

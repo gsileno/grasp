@@ -45,6 +45,10 @@ class Term {
             throw new RuntimeException("Negation on a not literal term.")
     }
 
+    Literal getLiteral() {
+        return extLiteral.literal
+    }
+
     ///////////////////////////////////////
     // builders
     ///////////////////////////////////////
