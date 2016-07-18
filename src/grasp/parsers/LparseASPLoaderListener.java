@@ -35,7 +35,7 @@ public class LparseASPLoaderListener extends LparseASPBaseListener {
             }
             atomNodes.put(ctx, atom);
         } else {
-            throw new RuntimeException();
+            throw new RuntimeException("I was not expecting this element: "+ctx.getText());
         }
     }
 
@@ -77,7 +77,7 @@ public class LparseASPLoaderListener extends LparseASPBaseListener {
             formula = Formula.build(extLiteral);
             formulaList.add(formula);
         } else {
-            throw new RuntimeException();
+            throw new RuntimeException("I was not expecting this element: "+ctx.getText());
         }
 
         if (ctx.list_ext_literals_expressions() != null) {
@@ -95,7 +95,7 @@ public class LparseASPLoaderListener extends LparseASPBaseListener {
         if (ctx.literal() != null) {
             literal = literalNodes.get(ctx.literal());
         } else {
-            throw new RuntimeException();
+            throw new RuntimeException("I was not expecting this element: "+ctx.getText());
         }
 
         literalList.add(literal);
@@ -117,7 +117,7 @@ public class LparseASPLoaderListener extends LparseASPBaseListener {
         } else if (ctx.constant() != null) {
             parameter = Parameter.build(Integer.parseInt(ctx.constant().INTEGER().getText()));
         } else {
-            throw new RuntimeException();
+            throw new RuntimeException("I was not expecting this element: "+ctx.getText());
         }
 
         parameterList.add(parameter);
@@ -166,7 +166,7 @@ public class LparseASPLoaderListener extends LparseASPBaseListener {
         } else if (ctx.choice() != null) {
             formula = formulaNodes.get(ctx.choice());
         } else {
-            throw new RuntimeException();
+            throw new RuntimeException("I was not expecting this element: "+ctx.getText());
         }
 
         formulaNodes.put(ctx, formula);
@@ -180,7 +180,7 @@ public class LparseASPLoaderListener extends LparseASPBaseListener {
         } else if (ctx.list_ext_literals_expressions() != null) {
             formula = Formula.buildFromFormulas(formulaListNodes.get(ctx.list_ext_literals_expressions()), Operator.AND);
         } else {
-            throw new RuntimeException();
+            throw new RuntimeException("I was not expecting this element: "+ctx.getText());
         }
 
         formulaNodes.put(ctx, formula);
@@ -192,7 +192,7 @@ public class LparseASPLoaderListener extends LparseASPBaseListener {
         if (ctx.body() != null) {
             rule.setBody(formulaNodes.get(ctx.body()));
         } else {
-            throw new RuntimeException();
+            throw new RuntimeException("I was not expecting this element: "+ctx.getText());
         }
 
         ruleNodes.put(ctx, rule);
@@ -204,13 +204,13 @@ public class LparseASPLoaderListener extends LparseASPBaseListener {
         if (ctx.head() != null) {
             rule.setHead(formulaNodes.get(ctx.head()));
         } else {
-            throw new RuntimeException();
+            throw new RuntimeException("I was not expecting this element: "+ctx.getText());
         }
 
         if (ctx.body() != null) {
             rule.setBody(formulaNodes.get(ctx.body()));
         } else {
-            throw new RuntimeException();
+            throw new RuntimeException("I was not expecting this element: "+ctx.getText());
         }
 
         ruleNodes.put(ctx, rule);
@@ -236,7 +236,7 @@ public class LparseASPLoaderListener extends LparseASPBaseListener {
         if (ctx.head() != null) {
             rule.setHead(formulaNodes.get(ctx.head()));
         } else {
-            throw new RuntimeException();
+            throw new RuntimeException("I was not expecting this element: "+ctx.getText());
         }
 
         ruleNodes.put(ctx, rule);
