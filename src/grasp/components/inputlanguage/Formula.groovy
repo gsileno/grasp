@@ -1,8 +1,9 @@
 package grasp.components.inputlanguage
 
 import groovy.transform.AutoClone
+import groovy.transform.EqualsAndHashCode
 
-@AutoClone
+@EqualsAndHashCode @AutoClone
 class Formula {
 
     List<Formula> inputFormulas = [] // sub-formulas in input
@@ -13,11 +14,61 @@ class Formula {
     // operations
     ///////////////////////////////////////
 
+    static List<Formula> sortFormulaList(List<Formula> inputFormulas) {
+        Formula temp
+        for (int i = 0; i < inputFormulas.size(); i++) {
+            for (int j = i; j > 0; j--) {
+                if (inputFormulas[j].toString() < inputFormulas[j - 1].toString()) {
+                    temp = inputFormulas[j];
+                    inputFormulas[j] = inputFormulas[j - 1];
+                    inputFormulas[j - 1] = temp;
+                }
+            }
+        }
+        inputFormulas
+    }
+
+
+    // TODO: based on string, really not good
+    Formula sort() {
+        Formula sorted = this.clone()
+        if (operator == Operator.AND || operator == Operator.OR || operator == Operator.CHOICE || operator != Operator.XOR) {
+
+            if (sorted.inputTerms.size() > 0) {
+                Term temp
+                for (int i = 0; i < sorted.inputTerms.size(); i++) {
+                    for (int j = i; j > 0; j--) {
+                        if (sorted.inputTerms[j].toString().replaceAll('-', '')  < sorted.inputTerms[j-1].toString().replaceAll('-', '') ) { // TODO add naf
+                            temp = sorted.inputTerms[j];
+                            sorted.inputTerms[j] = sorted.inputTerms[j - 1];
+                            sorted.inputTerms[j - 1] = temp;
+                        }
+                    }
+                }
+            }
+
+            if (sorted.inputFormulas.size() > 0) {
+                Formula temp
+                for (int i = 0; i < sorted.inputFormulas.size(); i++) {
+                    for (int j = i; j > 0; j--) {
+                        if (sorted.inputFormulas[j].toString().replaceAll('-', '')  < sorted.inputFormulas[j - 1].toString().replaceAll('-', '') ) { // TODO add naf
+                            temp = sorted.inputFormulas[j];
+                            sorted.inputFormulas[j] = sorted.inputFormulas[j - 1];
+                            sorted.inputFormulas[j - 1] = temp;
+                        }
+                    }
+                }
+            }
+        }
+
+        sorted
+    }
+
     List<ExtLiteral> getInputExtLiterals() {
         List<ExtLiteral> inputExtLiterals = []
         for (term in inputTerms) {
             if (!term.isExtLiteral())
-                throw new RuntimeException("I was expecting only extended literal terms here: "+ this);
+                throw new RuntimeException("I was expecting only extended literal terms here: " + this);
             else {
                 inputExtLiterals << term.getExtLiteral()
             }
@@ -29,7 +80,7 @@ class Formula {
         List<Literal> inputLiterals = []
         for (term in inputTerms) {
             if (!term.isLiteral())
-                throw new RuntimeException("I was expecting only literal terms here: "+ this);
+                throw new RuntimeException("I was expecting only literal terms here: " + this);
             else {
                 inputLiterals << term.getLiteral()
             }
@@ -69,6 +120,13 @@ class Formula {
     ///////////////////////////////////////
     // builders
     ///////////////////////////////////////
+
+    static Formula build(Atom atom) {
+        new Formula(
+                operator: Operator.POS,
+                inputTerms: [Term.build(Literal.build(atom))]
+        )
+    }
 
     static Formula build(Literal literal) {
         new Formula(
@@ -188,7 +246,7 @@ class Formula {
 
         Formula formula = new Formula()
 
-        if (terms.size() > 1) {
+        if (inputs.size() > 1) {
             inputs.each() {
                 terms = terms - it.inputTerms + it.inputTerms
             }

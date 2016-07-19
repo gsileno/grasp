@@ -1,9 +1,11 @@
 package grasp.components.inputlanguage
 
+import grasp.parsers.LparseASPLoader
+import groovy.transform.AutoClone
 import groovy.transform.EqualsAndHashCode
 import groovy.util.logging.Log4j
 
-@Log4j @EqualsAndHashCode
+@Log4j @EqualsAndHashCode @AutoClone
 class ExtLiteral {
 
     Boolean naf // default negation
@@ -43,6 +45,15 @@ class ExtLiteral {
         extLiteral
     }
 
+    static ExtLiteral parse(String code) {
+        LparseASPLoader loader = new LparseASPLoader()
+        List<Rule> ruleList = loader.parseString(code+".")
+
+        if (ruleList == null) throw new RuntimeException("parsing of extended literal not successful")
+        if (!ruleList[0].isFact()) throw new RuntimeException("not a fact in input: parsing of '$code' not successful")
+        else return ruleList[0].head.inputExtLiterals[0].clone()
+    }
+
     ///////////////////////////////////////
     // converters
     ///////////////////////////////////////
@@ -60,7 +71,7 @@ class ExtLiteral {
     }
 
     ExtLiteral negate() {
-        build(literal.negate(), true)
+        build(literal.negate(), false)
     }
 
     ///////////////////////////////////////

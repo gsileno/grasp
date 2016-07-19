@@ -1,5 +1,8 @@
 package grasp.components.inputlanguage
 
+import groovy.transform.EqualsAndHashCode
+
+@EqualsAndHashCode
 class Term {
 
     ExtLiteral extLiteral

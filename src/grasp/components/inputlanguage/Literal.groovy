@@ -1,5 +1,6 @@
 package grasp.components.inputlanguage
 
+import grasp.parsers.LparseASPLoader
 import groovy.transform.AutoClone
 import groovy.transform.EqualsAndHashCode
 import groovy.util.logging.Log4j
@@ -48,6 +49,16 @@ class Literal {
 
     static Literal build(String functor, List<Parameter> parameters = [], neg = false) {
         new Literal(atom: Atom.build(functor, parameters), neg: neg)
+    }
+
+    static Literal parse(String code) {
+        LparseASPLoader loader = new LparseASPLoader()
+        List<Rule> ruleList = loader.parseString(code+".")
+
+        if (ruleList == null) throw new RuntimeException("parsing of literal not successful")
+        if (!ruleList[0].isFact()) throw new RuntimeException("not a fact in input: parsing of '$code' not successful")
+        if (ruleList[0].head.inputExtLiterals[0].naf) throw new RuntimeException("not a classic literal in input: parsing of '$code' not successful")
+        else return ruleList[0].head.inputExtLiterals[0].literal.clone()
     }
 
     ///////////////////////////////////////
