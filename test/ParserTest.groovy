@@ -30,10 +30,13 @@ class ParserTest extends GroovyTestCase {
 
     void testNullAtom() {
         Program program = new Program()
-        program.loadCode("b :- naf a.")
+        program.loadCode("b :- not a.")
         assert program.parse()
         assert program.ruleList[0].body.inputExtLiterals[0].literal.atom.name == "a"
         assert program.ruleList[0].body.inputExtLiterals[0].naf
     }
+
+
+
 
 }

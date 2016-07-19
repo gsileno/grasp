@@ -57,7 +57,7 @@ class Runner {
         // generate temporary directory for files
         def folder = new File(tmpdir + '/')
         if (!folder.exists()) folder.mkdirs()
-        filename = tmpdir + "/" + generateMD5(code)
+        filename = tmpdir + "/" + generateMD5(program.code)
     }
 
     void loadCodeFromFile(String filename) {
@@ -105,7 +105,7 @@ class Runner {
     }
 
     void createCodeCache() {
-        createCache(filename, code)
+        createCache(filename, program.code)
         log.trace("code saved in the tmp file " + filename)
     }
 

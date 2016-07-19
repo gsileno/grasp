@@ -25,13 +25,7 @@ class EqualityTest extends GroovyTestCase {
 
         assert f1 == f1b
         assert f1 != f2
-
-        println "before sorting "+f2
-
         f2 = f2.sort()
-
-        println "after sorting "+f2
-
         assert f1 == f2
 
     }

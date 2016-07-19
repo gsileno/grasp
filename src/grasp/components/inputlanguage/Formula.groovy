@@ -2,8 +2,10 @@ package grasp.components.inputlanguage
 
 import groovy.transform.AutoClone
 import groovy.transform.EqualsAndHashCode
+import groovyx.gpars.extra166y.Ops
 
-@EqualsAndHashCode @AutoClone
+@EqualsAndHashCode
+@AutoClone
 class Formula {
 
     List<Formula> inputFormulas = [] // sub-formulas in input
@@ -28,7 +30,6 @@ class Formula {
         inputFormulas
     }
 
-
     // TODO: based on string, really not good
     Formula sort() {
         Formula sorted = this.clone()
@@ -38,7 +39,8 @@ class Formula {
                 Term temp
                 for (int i = 0; i < sorted.inputTerms.size(); i++) {
                     for (int j = i; j > 0; j--) {
-                        if (sorted.inputTerms[j].toString().replaceAll('-', '')  < sorted.inputTerms[j-1].toString().replaceAll('-', '') ) { // TODO add naf
+                        if (sorted.inputTerms[j].toString().replaceAll('-', '') < sorted.inputTerms[j - 1].toString().replaceAll('-', '')) {
+                            // TODO add naf
                             temp = sorted.inputTerms[j];
                             sorted.inputTerms[j] = sorted.inputTerms[j - 1];
                             sorted.inputTerms[j - 1] = temp;
@@ -51,7 +53,8 @@ class Formula {
                 Formula temp
                 for (int i = 0; i < sorted.inputFormulas.size(); i++) {
                     for (int j = i; j > 0; j--) {
-                        if (sorted.inputFormulas[j].toString().replaceAll('-', '')  < sorted.inputFormulas[j - 1].toString().replaceAll('-', '') ) { // TODO add naf
+                        if (sorted.inputFormulas[j].toString().replaceAll('-', '') < sorted.inputFormulas[j - 1].toString().replaceAll('-', '')) {
+                            // TODO add naf
                             temp = sorted.inputFormulas[j];
                             sorted.inputFormulas[j] = sorted.inputFormulas[j - 1];
                             sorted.inputFormulas[j - 1] = temp;
@@ -221,9 +224,8 @@ class Formula {
     // unary formula
     static Formula build(Formula input, Operator op) {
 
-        // if reduction has to be applied
-        if (input.inputTerms.size() > 0) {
-            return buildFromTerms(input.inputTerms, op)
+        if (op == Operator.AND || op == Operator.OR) {     // SIMPLIFICATION
+            return input.clone()
         } else {
             return new Formula(
                     operator: op,
