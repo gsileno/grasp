@@ -6,7 +6,7 @@ import groovy.util.logging.Log4j
 @Log4j @EqualsAndHashCode
 class ExtLiteral {
 
-    Boolean not // default negation
+    Boolean naf // default negation
     Literal literal
 
     ///////////////////////////////////////
@@ -14,7 +14,7 @@ class ExtLiteral {
     ///////////////////////////////////////
 
     Boolean isLiteral() {
-        return (!not)
+        return (!naf)
     }
 
     Boolean isAtom() {
@@ -32,14 +32,14 @@ class ExtLiteral {
     static ExtLiteral build(String functor) {
         ExtLiteral extLiteral = new ExtLiteral()
         extLiteral.literal = Literal.build(functor)
-        extLiteral.not = false
+        extLiteral.naf = false
         extLiteral
     }
 
-    static ExtLiteral build(Literal classicLiteral, Boolean not = false) {
+    static ExtLiteral build(Literal classicLiteral, Boolean naf = false) {
         ExtLiteral extLiteral = new ExtLiteral()
         extLiteral.literal = classicLiteral
-        extLiteral.not = not
+        extLiteral.naf = naf
         extLiteral
     }
 
@@ -69,7 +69,7 @@ class ExtLiteral {
 
     String toString() {
         String output = literal.toString()
-        if (not) output = "not "+output
+        if (naf) output = "naf "+output
         output
     }
 

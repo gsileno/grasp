@@ -1,49 +1,39 @@
 package grasp
 
-import grasp.runners.Runner
+import grasp.components.inputlanguage.Program
 
 class ParserTest extends GroovyTestCase {
 
     void testParsing() {
-        Runner runner = new Runner()
-        runner.loadCode("a. a :- b. :- c.")
-        assert runner.parse()
-        assert runner.ruleList.size() == 3;
-        assert runner.ruleList[0].isFact();
-        assert runner.ruleList[1].isRule();
-        assert runner.ruleList[2].isConstraint();
+        Program program = new Program()
+        program.loadCode("a. a :- b. :- c.")
+        assert program.parse()
+        assert program.ruleList.size() == 3;
+        assert program.ruleList[0].isFact();
+        assert program.ruleList[1].isRule();
+        assert program.ruleList[2].isConstraint();
     }
 
     void testWrongParsing() {
-        Runner runner = new Runner()
-        runner.loadCode("!a.")
-        assert !runner.parse()
-        runner.removeAllCache()
+        Program program = new Program()
+        program.loadCode("!a.")
+        assert !program.parse()
     }
 
-    void testGrounding() {
-        Runner runner = new Runner()
-        runner.loadCode("a. a :- b.")
-        assert runner.ground()
+    void testNegativeAtom() {
+        Program program = new Program()
+        program.loadCode("b :- -a.")
+        assert program.parse()
+        assert program.ruleList[0].body.inputLiterals[0].atom.name == "a"
+        assert program.ruleList[0].body.inputLiterals[0].neg
     }
 
-    void testFalseGrounding() {
-        Runner runner = new Runner()
-        runner.loadCode("!a.")
-        assert !runner.ground()
-        runner.removeAllCache()
-    }
-
-    void testRunning() {
-        Runner runner = new Runner()
-        runner.loadCode("a. a :- b.")
-        assert runner.solve()
-    }
-
-    void testReading() {
-        Runner runner = new Runner()
-        runner.loadCode("a. a :- b.")
-        assert runner.read()
+    void testNullAtom() {
+        Program program = new Program()
+        program.loadCode("b :- naf a.")
+        assert program.parse()
+        assert program.ruleList[0].body.inputExtLiterals[0].literal.atom.name == "a"
+        assert program.ruleList[0].body.inputExtLiterals[0].naf
     }
 
 }

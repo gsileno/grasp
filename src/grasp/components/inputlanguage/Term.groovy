@@ -42,7 +42,7 @@ class Term {
         if (extLiteral != null)
             build(extLiteral.negate())
         else
-            throw new RuntimeException("Negation on a not literal term.")
+            throw new RuntimeException("Negation on a naf literal term.")
     }
 
     Literal getLiteral() {

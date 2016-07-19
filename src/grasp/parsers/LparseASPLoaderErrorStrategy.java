@@ -6,7 +6,7 @@ public class LparseASPLoaderErrorStrategy extends DefaultErrorStrategy {
 
     /**
      * Instead of recovering from exception e, rethrow it wrapped
-     * in a generic RuntimeException so it is not caught by the
+     * in a generic RuntimeException so it is naf caught by the
      * rule function catches. Exception e is the "cause" of the
      * RuntimeException.
      */

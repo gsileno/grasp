@@ -34,7 +34,7 @@ public class LparseASPParser extends Parser {
 
 	private static final String[] _LITERAL_NAMES = {
 		null, "'hide'", "'show'", null, "':-'", "'.'", "','", "'('", "')'", "'{'", 
-		"'}'", "'='", "'!='", "'>'", "'<'", "'>='", "'<='", "'not'", "'+'", "'-'", 
+		"'}'", "'='", "'!='", "'>'", "'<'", "'>='", "'<='", "'naf'", "'+'", "'-'",
 		"'#domain'", "'..'"
 	};
 	private static final String[] _SYMBOLIC_NAMES = {

@@ -1,5 +1,6 @@
 package grasp.runners
 
+import grasp.components.inputlanguage.Program
 import grasp.components.inputlanguage.Rule
 import grasp.parsers.LparseASPLoader
 import groovy.util.logging.Log4j
@@ -20,7 +21,7 @@ class Runner {
     private String tmpdir = "./tmp"
     private String filename
 
-    String code
+    Program program
 
     GrounderType grounder
     String grounderOutput
@@ -30,17 +31,27 @@ class Runner {
     String solverOutput
     String solverError
 
-    List<Rule> ruleList = []
     List<AnswerSet> answerSetList = []
 
-    // preprocessing to remove comments
+    // preprocessing to remove style C comments
     void cleanCode() {
-        code = code.replaceAll("(?s)\\s*/\\*.*\\*/", '')
-        code = code.replaceAll("//+", '%')
+        program.code = program.code.replaceAll("(?s)\\s*/\\*.*\\*/", '')
+        program.code = program.code.replaceAll("//+", '%')
+    }
+
+    void reset() {
+        program = null
+        grounderOutput = null
+        grounderError = null
+        solverOutput = null
+        solverError = null
+        answerSetList = []
     }
 
     void loadCode(String inputCode) {
-        code = inputCode
+        reset()
+        program = new Program()
+        program.loadCode(inputCode)
         cleanCode()
 
         // generate temporary directory for files
@@ -172,18 +183,15 @@ class Runner {
 
     Boolean parse() {
         if (!existsParserCache()) {
-            LparseASPLoader loader = new LparseASPLoader()
-            ruleList = loader.parseString(code)
-            if (ruleList == null)
+            if (!program.parse())
                 return false
-            else
-                createParserCache(JsonOutput.toJson(ruleList))
 
+            createParserCache(JsonOutput.toJson(program.ruleList))
         } else {
             JsonSlurper slurper = new JsonSlurper()
             def importList = slurper.parseText(readParserCache())
             for (item in importList) {
-                ruleList.add(item as Rule)
+                program.ruleList.add(item as Rule)
             }
         }
 

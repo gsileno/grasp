@@ -44,7 +44,7 @@ class Formula {
                 throw new RuntimeException();
             else if (term.variable != null)
                 throw new RuntimeException();
-            else if (term.extLiteral.not)
+            else if (term.extLiteral.naf)
                 throw new RuntimeException();
             else if (!term.extLiteral.literal.isGrounded())
                 throw new RuntimeException();
