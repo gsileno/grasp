@@ -2,7 +2,6 @@ package grasp.components.inputlanguage
 
 import groovy.transform.AutoClone
 import groovy.transform.EqualsAndHashCode
-import groovyx.gpars.extra166y.Ops
 
 @EqualsAndHashCode
 @AutoClone
@@ -188,7 +187,7 @@ class Formula {
         } else { // with only one input, the formula becomes identity, unless it is negation
             if (op == Operator.NEG)
                 formula = build(Term.build(terms[0].extLiteral.negate()))
-            else if (op == Operator.NOT)
+            else if (op == Operator.NAF)
                 formula = build(Term.build(terms[0].extLiteral.nullify()))
             else
                 formula = build(terms[0])

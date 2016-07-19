@@ -27,7 +27,7 @@ public class LparseASPLexer extends Lexer {
 
 	public static final String[] ruleNames = {
 		"T__0", "T__1", "WS", "ENTAILS", "DOT", "COMMA", "LPAR", "RPAR", "LACC", 
-		"RACC", "EQ", "NEQ", "GT", "LT", "GE", "LE", "NOT", "PLUS", "MINUS", "DOMAIN", 
+		"RACC", "EQ", "NEQ", "GT", "LT", "GE", "LE", "NAF", "PLUS", "MINUS", "DOMAIN",
 		"RANGE", "INTEGER", "IDENTIFIER", "VARIABLE", "SINGLE_LINE_COMMENT", "MULTILINE_COMMENT"
 	};
 
@@ -38,7 +38,7 @@ public class LparseASPLexer extends Lexer {
 	};
 	private static final String[] _SYMBOLIC_NAMES = {
 		null, null, null, "WS", "ENTAILS", "DOT", "COMMA", "LPAR", "RPAR", "LACC", 
-		"RACC", "EQ", "NEQ", "GT", "LT", "GE", "LE", "NOT", "PLUS", "MINUS", "DOMAIN", 
+		"RACC", "EQ", "NEQ", "GT", "LT", "GE", "LE", "NAF", "PLUS", "MINUS", "DOMAIN",
 		"RANGE", "INTEGER", "IDENTIFIER", "VARIABLE", "SINGLE_LINE_COMMENT", "MULTILINE_COMMENT"
 	};
 	public static final Vocabulary VOCABULARY = new VocabularyImpl(_LITERAL_NAMES, _SYMBOLIC_NAMES);

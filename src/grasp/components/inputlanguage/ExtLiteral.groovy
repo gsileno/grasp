@@ -84,4 +84,9 @@ class ExtLiteral {
         output
     }
 
+    String toASP() {
+        String output = literal.toString()
+        if (naf) output = "not "+output
+        output
+    }
 }

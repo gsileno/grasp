@@ -87,4 +87,14 @@ class Term {
 
         output
     }
+
+    String toASP() {
+        String output = ""
+
+        if (extLiteral != null) output += extLiteral.toASP()
+        else if (variable != null) output += variable.toString()
+        else if (number != null) output += number
+
+        output
+    }
 }
