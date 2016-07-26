@@ -17,6 +17,5 @@ class CompositionTest extends GroovyTestCase {
         assert aANDb == aORb
     }
 
-
     
 }
