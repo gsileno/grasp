@@ -36,6 +36,17 @@ public class Rule {
         return new Rule(head: head, body: body)
     }
 
+    static Rule build(Literal fact) {
+        Formula head = Formula.build(fact);
+        return new Rule(head: head, body: null)
+    }
+
+    static Rule build(Literal conclusion, Literal premise) {
+        Formula head = Formula.build(conclusion);
+        Formula body = Formula.build(premise);
+        return new Rule(head: head, body: body)
+    }
+
     static Rule build(Literal conclusion, List<Literal> premises) {
         Formula head = Formula.build(conclusion);
         Formula body = Formula.buildFromLiterals(premises, Operator.AND);
