@@ -122,6 +122,9 @@ public class LparseASPLoaderListener extends LparseASPBaseListener {
             parameter = Parameter.build(Literal.build(Atom.build(ctx.identifier().IDENTIFIER().getText())));
         } else if (ctx.constant() != null) {
             parameter = Parameter.build(Integer.parseInt(ctx.constant().INTEGER().getText()));
+            if (ctx.MINUS() != null) {
+                parameter.setConstant(-parameter.getConstant());
+            }
         } else if  (ctx.pos_literal() != null) {
             Atom pos_literal = atomNodes.get(ctx.pos_literal());
             parameter = Parameter.build(Literal.build(pos_literal));

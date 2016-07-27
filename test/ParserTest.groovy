@@ -51,7 +51,7 @@ class ParserTest extends GroovyTestCase {
 
     void testPredicate2() {
         Program program = new Program()
-        program.loadCode("country(jamaica, economics(capitalist), position(18, -77))")
+        program.loadCode("country(jamaica, economics(capitalist), position(18, -77)).")
         assert program.parse()
         assert program.ruleList[0].isFact()
     }
