@@ -3,8 +3,11 @@ package grasp.parsers;
 import org.antlr.v4.runtime.atn.*;
 import org.antlr.v4.runtime.dfa.DFA;
 import org.antlr.v4.runtime.*;
+import org.antlr.v4.runtime.misc.*;
 import org.antlr.v4.runtime.tree.*;
 import java.util.List;
+import java.util.Iterator;
+import java.util.ArrayList;
 
 @SuppressWarnings({"all", "warnings", "unchecked", "unused", "cast"})
 public class LparseASPParser extends Parser {
@@ -29,17 +32,17 @@ public class LparseASPParser extends Parser {
 		"program", "directive", "asprule", "aspfact", "range", "normrule", "constraint", 
 		"choice", "head", "body", "list_literals", "list_ext_literals_expressions", 
 		"expression", "num_expression", "ext_literal", "literal", "pos_literal", 
-		"list_parameters", "atom", "identifier", "constant", "variable"
+		"list_parameters", "predicate", "identifier", "constant", "variable"
 	};
 
 	private static final String[] _LITERAL_NAMES = {
 		null, "'hide'", "'show'", null, "':-'", "'.'", "','", "'('", "')'", "'{'", 
-		"'}'", "'='", "'!='", "'>'", "'<'", "'>='", "'<='", "'naf'", "'+'", "'-'",
+		"'}'", "'='", "'!='", "'>'", "'<'", "'>='", "'<='", "'not'", "'+'", "'-'", 
 		"'#domain'", "'..'"
 	};
 	private static final String[] _SYMBOLIC_NAMES = {
 		null, null, null, "WS", "ENTAILS", "DOT", "COMMA", "LPAR", "RPAR", "LACC", 
-		"RACC", "EQ", "NEQ", "GT", "LT", "GE", "LE", "NAF", "PLUS", "MINUS", "DOMAIN",
+		"RACC", "EQ", "NEQ", "GT", "LT", "GE", "LE", "NOT", "PLUS", "MINUS", "DOMAIN", 
 		"RANGE", "INTEGER", "IDENTIFIER", "VARIABLE", "SINGLE_LINE_COMMENT", "MULTILINE_COMMENT"
 	};
 	public static final Vocabulary VOCABULARY = new VocabularyImpl(_LITERAL_NAMES, _SYMBOLIC_NAMES);
@@ -1215,6 +1218,9 @@ public class LparseASPParser extends Parser {
 		public ConstantContext constant() {
 			return getRuleContext(ConstantContext.class,0);
 		}
+		public Pos_literalContext pos_literal() {
+			return getRuleContext(Pos_literalContext.class,0);
+		}
 		public Num_expressionContext num_expression() {
 			return getRuleContext(Num_expressionContext.class,0);
 		}
@@ -1243,7 +1249,7 @@ public class LparseASPParser extends Parser {
 		try {
 			enterOuterAlt(_localctx, 1);
 			{
-			setState(164);
+			setState(165);
 			_errHandler.sync(this);
 			switch ( getInterpreter().adaptivePredict(_input,20,_ctx) ) {
 			case 1:
@@ -1267,17 +1273,23 @@ public class LparseASPParser extends Parser {
 			case 4:
 				{
 				setState(163);
+				pos_literal();
+				}
+				break;
+			case 5:
+				{
+				setState(164);
 				num_expression();
 				}
 				break;
 			}
-			setState(168);
+			setState(169);
 			_la = _input.LA(1);
 			if (_la==COMMA) {
 				{
-				setState(166);
-				match(COMMA);
 				setState(167);
+				match(COMMA);
+				setState(168);
 				list_parameters();
 				}
 			}
@@ -1317,7 +1329,7 @@ public class LparseASPParser extends Parser {
 		try {
 			enterOuterAlt(_localctx, 1);
 			{
-			setState(170);
+			setState(171);
 			match(IDENTIFIER);
 			}
 		}
@@ -1354,7 +1366,7 @@ public class LparseASPParser extends Parser {
 		try {
 			enterOuterAlt(_localctx, 1);
 			{
-			setState(172);
+			setState(173);
 			match(IDENTIFIER);
 			}
 		}
@@ -1391,7 +1403,7 @@ public class LparseASPParser extends Parser {
 		try {
 			enterOuterAlt(_localctx, 1);
 			{
-			setState(174);
+			setState(175);
 			match(INTEGER);
 			}
 		}
@@ -1428,7 +1440,7 @@ public class LparseASPParser extends Parser {
 		try {
 			enterOuterAlt(_localctx, 1);
 			{
-			setState(176);
+			setState(177);
 			match(VARIABLE);
 			}
 		}
@@ -1444,7 +1456,7 @@ public class LparseASPParser extends Parser {
 	}
 
 	public static final String _serializedATN =
-		"\3\u0430\ud6d1\u8206\uad2d\u4417\uaef1\u8d80\uaadd\3\34\u00b5\4\2\t\2"+
+		"\3\u0430\ud6d1\u8206\uad2d\u4417\uaef1\u8d80\uaadd\3\34\u00b6\4\2\t\2"+
 		"\4\3\t\3\4\4\t\4\4\5\t\5\4\6\t\6\4\7\t\7\4\b\t\b\4\t\t\t\4\n\t\n\4\13"+
 		"\t\13\4\f\t\f\4\r\t\r\4\16\t\16\4\17\t\17\4\20\t\20\4\21\t\21\4\22\t\22"+
 		"\4\23\t\23\4\24\t\24\4\25\t\25\4\26\t\26\4\27\t\27\3\2\3\2\3\2\7\2\62"+
@@ -1456,13 +1468,13 @@ public class LparseASPParser extends Parser {
 		"\3\16\3\16\3\16\3\16\3\16\5\16\u0087\n\16\3\17\3\17\5\17\u008b\n\17\3"+
 		"\17\3\17\3\17\5\17\u0090\n\17\3\20\5\20\u0093\n\20\3\20\3\20\3\21\5\21"+
 		"\u0098\n\21\3\21\3\21\3\22\3\22\3\22\3\22\3\22\5\22\u00a1\n\22\3\23\3"+
-		"\23\3\23\3\23\5\23\u00a7\n\23\3\23\3\23\5\23\u00ab\n\23\3\24\3\24\3\25"+
-		"\3\25\3\26\3\26\3\27\3\27\3\27\2\2\30\2\4\6\b\n\f\16\20\22\24\26\30\32"+
-		"\34\36 \"$&(*,\2\5\3\2\3\4\3\2\r\22\3\2\24\25\u00bb\2\63\3\2\2\2\4A\3"+
-		"\2\2\2\6E\3\2\2\2\bI\3\2\2\2\nM\3\2\2\2\fT\3\2\2\2\16Y\3\2\2\2\20^\3\2"+
-		"\2\2\22h\3\2\2\2\24l\3\2\2\2\26n\3\2\2\2\30u\3\2\2\2\32\177\3\2\2\2\34"+
-		"\u008a\3\2\2\2\36\u0092\3\2\2\2 \u0097\3\2\2\2\"\u009b\3\2\2\2$\u00a6"+
-		"\3\2\2\2&\u00ac\3\2\2\2(\u00ae\3\2\2\2*\u00b0\3\2\2\2,\u00b2\3\2\2\2."+
+		"\23\3\23\3\23\3\23\5\23\u00a8\n\23\3\23\3\23\5\23\u00ac\n\23\3\24\3\24"+
+		"\3\25\3\25\3\26\3\26\3\27\3\27\3\27\2\2\30\2\4\6\b\n\f\16\20\22\24\26"+
+		"\30\32\34\36 \"$&(*,\2\5\3\2\3\4\3\2\r\22\3\2\24\25\u00bd\2\63\3\2\2\2"+
+		"\4A\3\2\2\2\6E\3\2\2\2\bI\3\2\2\2\nM\3\2\2\2\fT\3\2\2\2\16Y\3\2\2\2\20"+
+		"^\3\2\2\2\22h\3\2\2\2\24l\3\2\2\2\26n\3\2\2\2\30u\3\2\2\2\32\177\3\2\2"+
+		"\2\34\u008a\3\2\2\2\36\u0092\3\2\2\2 \u0097\3\2\2\2\"\u009b\3\2\2\2$\u00a7"+
+		"\3\2\2\2&\u00ad\3\2\2\2(\u00af\3\2\2\2*\u00b1\3\2\2\2,\u00b3\3\2\2\2."+
 		"\62\5\4\3\2/\62\5\b\5\2\60\62\5\6\4\2\61.\3\2\2\2\61/\3\2\2\2\61\60\3"+
 		"\2\2\2\62\65\3\2\2\2\63\61\3\2\2\2\63\64\3\2\2\2\64\66\3\2\2\2\65\63\3"+
 		"\2\2\2\66\67\7\2\2\3\67\3\3\2\2\289\7\26\2\29:\5\26\f\2:;\7\7\2\2;B\3"+
@@ -1490,14 +1502,15 @@ public class LparseASPParser extends Parser {
 		"\u0098\7\25\2\2\u0097\u0096\3\2\2\2\u0097\u0098\3\2\2\2\u0098\u0099\3"+
 		"\2\2\2\u0099\u009a\5\"\22\2\u009a!\3\2\2\2\u009b\u00a0\5&\24\2\u009c\u009d"+
 		"\7\t\2\2\u009d\u009e\5$\23\2\u009e\u009f\7\n\2\2\u009f\u00a1\3\2\2\2\u00a0"+
-		"\u009c\3\2\2\2\u00a0\u00a1\3\2\2\2\u00a1#\3\2\2\2\u00a2\u00a7\5(\25\2"+
-		"\u00a3\u00a7\5,\27\2\u00a4\u00a7\5*\26\2\u00a5\u00a7\5\34\17\2\u00a6\u00a2"+
-		"\3\2\2\2\u00a6\u00a3\3\2\2\2\u00a6\u00a4\3\2\2\2\u00a6\u00a5\3\2\2\2\u00a7"+
-		"\u00aa\3\2\2\2\u00a8\u00a9\7\b\2\2\u00a9\u00ab\5$\23\2\u00aa\u00a8\3\2"+
-		"\2\2\u00aa\u00ab\3\2\2\2\u00ab%\3\2\2\2\u00ac\u00ad\7\31\2\2\u00ad\'\3"+
-		"\2\2\2\u00ae\u00af\7\31\2\2\u00af)\3\2\2\2\u00b0\u00b1\7\30\2\2\u00b1"+
-		"+\3\2\2\2\u00b2\u00b3\7\32\2\2\u00b3-\3\2\2\2\30\61\63>AEI^dhlquy\177"+
-		"\u0086\u008a\u008f\u0092\u0097\u00a0\u00a6\u00aa";
+		"\u009c\3\2\2\2\u00a0\u00a1\3\2\2\2\u00a1#\3\2\2\2\u00a2\u00a8\5(\25\2"+
+		"\u00a3\u00a8\5,\27\2\u00a4\u00a8\5*\26\2\u00a5\u00a8\5\"\22\2\u00a6\u00a8"+
+		"\5\34\17\2\u00a7\u00a2\3\2\2\2\u00a7\u00a3\3\2\2\2\u00a7\u00a4\3\2\2\2"+
+		"\u00a7\u00a5\3\2\2\2\u00a7\u00a6\3\2\2\2\u00a8\u00ab\3\2\2\2\u00a9\u00aa"+
+		"\7\b\2\2\u00aa\u00ac\5$\23\2\u00ab\u00a9\3\2\2\2\u00ab\u00ac\3\2\2\2\u00ac"+
+		"%\3\2\2\2\u00ad\u00ae\7\31\2\2\u00ae\'\3\2\2\2\u00af\u00b0\7\31\2\2\u00b0"+
+		")\3\2\2\2\u00b1\u00b2\7\30\2\2\u00b2+\3\2\2\2\u00b3\u00b4\7\32\2\2\u00b4"+
+		"-\3\2\2\2\30\61\63>AEI^dhlquy\177\u0086\u008a\u008f\u0092\u0097\u00a0"+
+		"\u00a7\u00ab";
 	public static final ATN _ATN =
 		new ATNDeserializer().deserialize(_serializedATN.toCharArray());
 	static {

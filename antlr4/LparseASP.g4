@@ -60,8 +60,7 @@ literal : ( MINUS )? pos_literal ;
 pos_literal : predicate ( LPAR list_parameters RPAR )? ;
 
 /** Parameters are identifiers or variables, separated by comma. */
-list_parameters :  (identifier | variable | constant | num_expression ) (COMMA list_parameters)? ;
-// list_parameters :  (identifier | variable | constant | pos_literal | num_expression ) (COMMA list_parameters)? ;
+list_parameters :  (identifier | variable | constant | pos_literal | num_expression ) (COMMA list_parameters)? ;
 
 predicate : IDENTIFIER ;
 identifier : IDENTIFIER ;

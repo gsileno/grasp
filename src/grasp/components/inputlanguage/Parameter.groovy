@@ -5,7 +5,7 @@ import groovy.transform.EqualsAndHashCode
 @EqualsAndHashCode
 class Parameter {
 
-    Literal literal
+    Literal literal       // TODO: normally terms should be only positive literals (i.e. atoms)
     Variable variable
     Integer constant
 

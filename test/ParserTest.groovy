@@ -36,7 +36,24 @@ class ParserTest extends GroovyTestCase {
         assert program.ruleList[0].body.inputExtLiterals[0].naf
     }
 
+    void testPredicate() {
+        Program program = new Program()
+        program.loadCode("face(f1, color(rgb(255, 220, 177))).")
+        assert program.parse()
+        assert program.ruleList[0].isFact()
+    }
 
+    void testWrongPredicate() {
+        Program program = new Program()
+        program.loadCode("face(f1, color(rgb(255, 220, 177)).")
+        assert !program.parse()
+    }
 
+    void testPredicate2() {
+        Program program = new Program()
+        program.loadCode("country(jamaica, economics(capitalist), position(18, -77))")
+        assert program.parse()
+        assert program.ruleList[0].isFact()
+    }
 
 }

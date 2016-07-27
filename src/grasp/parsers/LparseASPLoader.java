@@ -57,7 +57,7 @@ public class LparseASPLoader {
 
         //** TO LET ANTLR GIVES FEEDBACK ON THE GRAMMAR **//
         parser.removeErrorListeners();
-        parser.addErrorListener(new DiagnosticErrorListener());
+        parser.addErrorListener(errorListener);
 
         ParseTree tree = parser.program();
 

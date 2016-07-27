@@ -27,6 +27,7 @@ public class LparseASPLoaderListener extends LparseASPBaseListener {
     ///////////////// LISTENERS
 
     public void exitPos_literal(LparseASPParser.Pos_literalContext ctx) {
+        log.trace("exit from "+ctx.getText());
 
         if (ctx.predicate().IDENTIFIER() != null) {
             Atom atom = Atom.build(ctx.predicate().IDENTIFIER().getText());
@@ -35,11 +36,12 @@ public class LparseASPLoaderListener extends LparseASPBaseListener {
             }
             atomNodes.put(ctx, atom);
         } else {
-            throw new RuntimeException("I was naf expecting this element: "+ctx.getText());
+            throw new RuntimeException("I was not expecting this element: "+ctx.getText());
         }
     }
 
     public void exitLiteral(LparseASPParser.LiteralContext ctx) {
+        log.trace("exit from "+ctx.getText());
 
         Atom pos_literal = atomNodes.get(ctx.pos_literal());
 
@@ -54,6 +56,7 @@ public class LparseASPLoaderListener extends LparseASPBaseListener {
     }
 
     public void exitExt_literal(LparseASPParser.Ext_literalContext ctx) {
+        log.trace("exit from "+ctx.getText());
 
         ExtLiteral extLiteral = ExtLiteral.build(literalNodes.get(ctx.literal()));
 
@@ -67,6 +70,7 @@ public class LparseASPLoaderListener extends LparseASPBaseListener {
     }
 
     public void exitList_ext_literals_expressions(LparseASPParser.List_ext_literals_expressionsContext ctx) {
+        log.trace("exit from "+ctx.getText());
 
         Formula formula = null;
         List<Formula> formulaList = new ArrayList<Formula>();
@@ -77,7 +81,7 @@ public class LparseASPLoaderListener extends LparseASPBaseListener {
             formula = Formula.build(extLiteral);
             formulaList.add(formula);
         } else {
-            throw new RuntimeException("I was naf expecting this element: "+ctx.getText());
+            throw new RuntimeException("I was not expecting this element: "+ctx.getText());
         }
 
         if (ctx.list_ext_literals_expressions() != null) {
@@ -88,6 +92,7 @@ public class LparseASPLoaderListener extends LparseASPBaseListener {
     }
 
     public void exitList_literals(LparseASPParser.List_literalsContext ctx) {
+        log.trace("exit from "+ctx.getText());
 
         Literal literal = null;
         List<Literal> literalList = new ArrayList<Literal>();
@@ -95,7 +100,7 @@ public class LparseASPLoaderListener extends LparseASPBaseListener {
         if (ctx.literal() != null) {
             literal = literalNodes.get(ctx.literal());
         } else {
-            throw new RuntimeException("I was naf expecting this element: "+ctx.getText());
+            throw new RuntimeException("I was not expecting this element: "+ctx.getText());
         }
 
         literalList.add(literal);
@@ -108,6 +113,7 @@ public class LparseASPLoaderListener extends LparseASPBaseListener {
     }
 
     public void exitList_parameters(LparseASPParser.List_parametersContext ctx) {
+        log.trace("exit from "+ctx.getText());
 
         Parameter parameter = null;
         List<Parameter> parameterList = new ArrayList<Parameter>();
@@ -116,8 +122,11 @@ public class LparseASPLoaderListener extends LparseASPBaseListener {
             parameter = Parameter.build(Literal.build(Atom.build(ctx.identifier().IDENTIFIER().getText())));
         } else if (ctx.constant() != null) {
             parameter = Parameter.build(Integer.parseInt(ctx.constant().INTEGER().getText()));
+        } else if  (ctx.pos_literal() != null) {
+            Atom pos_literal = atomNodes.get(ctx.pos_literal());
+            parameter = Parameter.build(Literal.build(pos_literal));
         } else {
-            throw new RuntimeException("I was naf expecting this element: "+ctx.getText());
+            throw new RuntimeException("I was not expecting this element: "+ctx.getText());
         }
 
         parameterList.add(parameter);
@@ -130,6 +139,8 @@ public class LparseASPLoaderListener extends LparseASPBaseListener {
     }
 
     public void exitChoice(LparseASPParser.ChoiceContext ctx) {
+        log.trace("exit from "+ctx.getText());
+
         List<Literal> literalList = literalListNodes.get(ctx.list_literals());
 
         // read the parameters for the choice operator
@@ -158,6 +169,7 @@ public class LparseASPLoaderListener extends LparseASPBaseListener {
     }
 
     public void exitHead(LparseASPParser.HeadContext ctx) {
+        log.trace("exit from "+ctx.getText());
 
         Formula formula = null;
 
@@ -166,13 +178,15 @@ public class LparseASPLoaderListener extends LparseASPBaseListener {
         } else if (ctx.choice() != null) {
             formula = formulaNodes.get(ctx.choice());
         } else {
-            throw new RuntimeException("I was naf expecting this element: "+ctx.getText());
+            throw new RuntimeException("I was not expecting this element: "+ctx.getText());
         }
 
         formulaNodes.put(ctx, formula);
     }
 
     public void exitBody(LparseASPParser.BodyContext ctx) {
+        log.trace("exit from "+ctx.getText());
+
         Formula formula = null;
 
         if (ctx.choice() != null) {
@@ -180,37 +194,41 @@ public class LparseASPLoaderListener extends LparseASPBaseListener {
         } else if (ctx.list_ext_literals_expressions() != null) {
             formula = Formula.buildFromFormulas(formulaListNodes.get(ctx.list_ext_literals_expressions()), Operator.AND);
         } else {
-            throw new RuntimeException("I was naf expecting this element: "+ctx.getText());
+            throw new RuntimeException("I was not expecting this element: "+ctx.getText());
         }
 
         formulaNodes.put(ctx, formula);
     }
 
     public void exitConstraint(LparseASPParser.ConstraintContext ctx) {
+        log.trace("exit from "+ctx.getText());
+
         Rule rule = new Rule();
 
         if (ctx.body() != null) {
             rule.setBody(formulaNodes.get(ctx.body()));
         } else {
-            throw new RuntimeException("I was naf expecting this element: "+ctx.getText());
+            throw new RuntimeException("I was not expecting this element: "+ctx.getText());
         }
 
         ruleNodes.put(ctx, rule);
     }
 
     public void exitNormrule(LparseASPParser.NormruleContext ctx) {
+        log.trace("exit from "+ctx.getText());
+
         Rule rule = new Rule();
 
         if (ctx.head() != null) {
             rule.setHead(formulaNodes.get(ctx.head()));
         } else {
-            throw new RuntimeException("I was naf expecting this element: "+ctx.getText());
+            throw new RuntimeException("I was not expecting this element: "+ctx.getText());
         }
 
         if (ctx.body() != null) {
             rule.setBody(formulaNodes.get(ctx.body()));
         } else {
-            throw new RuntimeException("I was naf expecting this element: "+ctx.getText());
+            throw new RuntimeException("I was not expecting this element: "+ctx.getText());
         }
 
         ruleNodes.put(ctx, rule);
@@ -218,6 +236,8 @@ public class LparseASPLoaderListener extends LparseASPBaseListener {
 
 
     public void exitAsprule(LparseASPParser.AspruleContext ctx) {
+        log.trace("exit from "+ctx.getText());
+
         Rule rule = null;
 
         if (ctx.constraint() != null) {
@@ -231,12 +251,14 @@ public class LparseASPLoaderListener extends LparseASPBaseListener {
     }
 
     public void exitAspfact(LparseASPParser.AspfactContext ctx) {
+        log.trace("exit from "+ctx.getText());
+
         Rule rule = new Rule();
 
         if (ctx.head() != null) {
             rule.setHead(formulaNodes.get(ctx.head()));
         } else {
-            throw new RuntimeException("I was naf expecting this element: "+ctx.getText());
+            throw new RuntimeException("I was not expecting this element: "+ctx.getText());
         }
 
         ruleNodes.put(ctx, rule);
