@@ -64,7 +64,14 @@ public class Rule {
     ///////////////////////////////////////
 
     Formula toFormula() {
-        Formula.build(body, head, Operator.IF)
+        if (body != null && head != null)
+            Formula.build(body, head, Operator.IF)
+        else if (body != null)
+            Formula.build(head, Operator.NAF) // TODO CHECK
+        else if (head != null)
+            Formula.build(head, Operator.POS)
+        else
+            throw new RuntimeException("Empty formula not expected.")
     }
 
     ///////////////////////////////////////

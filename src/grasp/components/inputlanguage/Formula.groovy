@@ -289,4 +289,73 @@ class Formula {
         output
     }
 
+    String toASP(Boolean head = false) {
+        String output = ""
+
+        Integer n = inputFormulas.size()
+
+        switch (operator) {
+            case Operator.POS:
+                if (n > 1) return "// POS there should be only an atom"
+                break
+            case Operator.AND:
+                if (head) output += n + "{"
+                break
+            case Operator.OR:
+                output += "1{"
+                break
+            case Operator.CHOICE:
+                // TODO: choice parameters to be implemented
+                output += "{"
+                break
+            case Operator.NEG:
+                if (n > 1) return "// NEG: there should be only an atom"
+                output += "-"
+                break
+            case Operator.IF:
+                return "// ASP does naf allow for internal implications"
+                break
+            case Operator.XOR:
+                output += "1{"
+                break
+            default:
+                throw new RuntimeException("Not yet implemented")
+        }
+
+        if (inputFormulas.size() > 0) {
+            for (formula in inputFormulas)
+                output += formula.toASP()+', '
+            output = output[0..-3]
+        } else {
+            if (inputTerms.size() > 1)
+                throw new RuntimeException("In this atomic formula there are more atoms !?!")
+
+            output += inputTerms[0].toASP()
+        }
+
+        switch (operator) {
+            case Operator.POS:
+                break
+            case Operator.AND:
+                if (head) output += "}" + n
+                break
+            case Operator.OR:
+                output += "}"
+                break
+            case Operator.CHOICE:
+                output += "}" + n
+                // TODO: choice parameters to be implemented
+                break
+            case Operator.NEG:
+                break
+            case Operator.XOR:
+                output += "}1"
+                break
+            default:
+                throw new RuntimeException("Not yet implemented")
+        }
+
+        output
+    }
+
 }
