@@ -15,6 +15,7 @@ public class LparseASPLoaderErrorListener extends BaseErrorListener {
     @Override
     public void syntaxError(Recognizer<?, ?> recognizer, Object offendingSymbol, int line, int charPositionInLine, String msg, RecognitionException e)
             throws ParseCancellationException {
+        System.out.print("line " + line + ":" + charPositionInLine + " " + msg);
         errors.add("line " + line + ":" + charPositionInLine + " " + msg);
     }
 }

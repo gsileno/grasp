@@ -62,6 +62,10 @@ class ExtLiteral {
         Formula.build(this)
     }
 
+    List<Parameter> getParameters() {
+        literal.atom.parameters
+    }
+
     ///////////////////////////////////////
     // operations
     ///////////////////////////////////////

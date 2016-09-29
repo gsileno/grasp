@@ -69,6 +69,10 @@ class Literal {
         Formula.build(this)
     }
 
+    List<Parameter> getParameters() {
+        atom.parameters
+    }
+
     ///////////////////////////////////////
     // views
     ///////////////////////////////////////

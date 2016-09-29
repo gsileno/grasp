@@ -68,8 +68,9 @@ public class LparseASPLoader {
 
         walker.walk(loader, tree); // walk parse tree
 
-        if (errorListener.errors.size() > 0)
+        if (errorListener.errors.size() > 0) {
             return null;
+        }
         else
             return loader.ruleList;
     }
