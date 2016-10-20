@@ -95,12 +95,14 @@ NOT : 'not' ; // default negation
 PLUS : '+' ;
 MINUS : '-' ; // both for strong negation and arithmetic deletion
 
+UNDERSCORE : '_' ;
+
 DOMAIN : '#domain' ;
 
 RANGE : '..' ;
 INTEGER : '0' | [1-9] ([0-9])* ;
 IDENTIFIER: [a-z] ([0-9a-zA-Z_])* ;
-VARIABLE: [_A-Z] ([0-9a-zA-Z_])* ;
+VARIABLE: [A-Z] ([0-9a-zA-Z_])* ;
 
 // in addition to ASP comments (%) I added the standard C, Java comment style.
 SINGLE_LINE_COMMENT : ('%' | '//') ~('\n'|'\r')* -> channel(HIDDEN) ;
